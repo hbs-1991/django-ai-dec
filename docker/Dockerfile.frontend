@@ -1,0 +1,17 @@
+FROM python:3.12-slim
+
+WORKDIR /app
+
+# Установка Streamlit и зависимостей
+RUN pip install streamlit pandas requests plotly
+
+# Копирование frontend кода
+COPY frontend_streamlit/ .
+
+# Создание пользователя
+RUN useradd --create-home --shell /bin/bash app
+USER app
+
+EXPOSE 8501
+
+CMD ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]

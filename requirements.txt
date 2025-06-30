@@ -1,0 +1,44 @@
+# Core Django
+Django
+djangorestframework
+django-cors-headers
+django-filter
+django-extensions
+
+# Database
+psycopg2-binary
+
+# Task Queue
+celery
+redis
+django-celery-beat
+django-celery-results
+
+# File Processing
+pandas
+openpyxl
+xlrd
+
+# AI & ML
+openai
+openai-agents
+
+# Frontend
+streamlit
+plotly
+
+# Monitoring & Logging
+sentry-sdk
+
+# Development
+python-dotenv
+django-debug-toolbar
+
+# Testing
+pytest
+pytest-django
+factory-boy
+
+# Production
+gunicorn
+whitenoise
