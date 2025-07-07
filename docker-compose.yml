@@ -21,10 +21,14 @@ services:
     build: 
       context: .
       dockerfile: docker/Dockerfile.backend
-    command: python manage.py runserver 0.0.0.0:8000
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py collectstatic --noinput &&
+             python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./backend:/app
       - media_volume:/app/media
+      - static_volume:/app/static
     ports:
       - "8000:8000"
     depends_on:
@@ -32,8 +36,12 @@ services:
       - redis
     environment:
       - DEBUG=1
+      - USE_DOCKER=true
       - DATABASE_URL=postgresql://postgres:password@db:5432/ai_declarant
       - REDIS_URL=redis://redis:6379/1
+      - CELERY_BROKER_URL=redis://redis:6379/1
+      - CELERY_RESULT_BACKEND=redis://redis:6379/1
+      - DJANGO_SETTINGS_MODULE=config.settings.dev
 
   celery:
     build: 
@@ -48,8 +56,12 @@ services:
       - redis
     environment:
       - DEBUG=1
+      - USE_DOCKER=true
       - DATABASE_URL=postgresql://postgres:password@db:5432/ai_declarant
       - REDIS_URL=redis://redis:6379/1
+      - CELERY_BROKER_URL=redis://redis:6379/1
+      - CELERY_RESULT_BACKEND=redis://redis:6379/1
+      - DJANGO_SETTINGS_MODULE=config.settings.dev
 
   frontend:
     build: 
@@ -66,3 +78,4 @@ services:
 volumes:
   postgres_data:
   media_volume:
+  static_volume:

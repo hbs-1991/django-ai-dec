@@ -1,0 +1,1 @@
+# Django management команды для core приложения 

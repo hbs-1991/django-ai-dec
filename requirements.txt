@@ -7,6 +7,7 @@ django-extensions
 
 # Database
 psycopg2-binary
+dj-database-url
 
 # Task Queue
 celery
@@ -33,6 +34,13 @@ sentry-sdk
 # Development
 python-dotenv
 django-debug-toolbar
+requests
+
+# Streamlit Frontend
+streamlit
+pandas
+plotly
+altair
 
 # Testing
 pytest
